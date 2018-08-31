@@ -1,4 +1,5 @@
 function J = Jinv(q_1, q_2, l1, l2)
+%Hi i am not seeing are changes
 
 syms q1 q2
 
