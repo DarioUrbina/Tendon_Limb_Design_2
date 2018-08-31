@@ -1,8 +1,4 @@
-% Testing
 function J = Jinv(q_1, q_2, l1, l2)
-
-% l1=1;
-% l2=1;
 
 syms q1 q2
 
