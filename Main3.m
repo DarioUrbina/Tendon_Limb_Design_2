@@ -8,10 +8,14 @@
 % it also calls function Tendon_Limb_Design.m to get the feasible force set
 %       Still need to determine if gotten feasible force set is good 
 
-
+%%
+clear all
+clc
+close all
 %% Parameters
 %Physical measures
-l1=8;                  
+l1=8;             %[cm] both segments are the same for this study
+r1= 2.3 ;            %[cm] all moment arms have the same dimension for this study (sign depends on direction)
 q1_Position=[0 15];
 firstTouchPoint=5.7;
 %Motors
@@ -19,12 +23,14 @@ Motor_Force=49*.80;   %In a 24 24 scenario. The motors don't go to stall torque 
 force_figure_scale=.1; %Scale to fit leg trajectory figure with feasible force sets figure 
 %Figures
 xlimit1=[-8 8];        
-ylimit1=[-5 17]; 
+ylimit1=[-5 17];
+figureSwitch=0;
 
 %Aditional
 angleCount=1;
 touch_number=1;
 %%
+
 figure
 for i=1:3.6:45
     angleCount;
@@ -83,4 +89,4 @@ degs=[deg1;deg2]'
 % ground_Touch=flip(ground_Touch);
 
 %Funtion for fesible force sets
-Tendon_Limb_Design(degs,Motor_Force,ground_Touch,force_figure_scale,0)
+Tendon_Limb_Design(l1,r1,degs,Motor_Force,ground_Touch,force_figure_scale,figureSwitch)
