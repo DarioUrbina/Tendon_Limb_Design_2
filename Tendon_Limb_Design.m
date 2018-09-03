@@ -8,7 +8,7 @@
 %figureSwitch(if 1 separate figures will be shown with feasible force sets, use figure scaling_fator=1 ))
 %%
 function Tendon_Limb_Design(l1,r1,q,Force,endPoint_Location,scaling_fator,figureSwitch)
-
+    referece_Force=20;
     sizze=size(q,1);
     Force=Force*scaling_fator;
     F01 = Force; F02 = Force; F03 = Force;      %Force values 
@@ -24,7 +24,7 @@ function Tendon_Limb_Design(l1,r1,q,Force,endPoint_Location,scaling_fator,figure
 
 
 for i=1:sizze
-    i
+%     i
         disp=i*19;
 %         disp=0 ;                      
         J_inv_Front = Jinv(deg2rad(q(i,1)), deg2rad(q(i,2)), l1, l2,i);       %Inverse Jacobian
@@ -38,11 +38,6 @@ for i=1:sizze
         x_F = [H_front(1,1) H_front(1,2) H_front(1,3)];
         y_F = [H_front(2,1) H_front(2,2) H_front(2,3)];
                 
-%         J_inv=J_inv_Front'
-%         R_Front
-%         F0
-        FirstSection=J_inv_Front'* R_Front
-         H_front
         
         comb=[0 0 0 
             0 0 1
@@ -90,6 +85,12 @@ for i=1:sizze
                 hold on
                 plot(vertex(k)+disp,vertey(k),'r-')
             end
+%Ploting reference            
+            hold on
+            plot([-5.5,-5.5],[0,referece_Force*scaling_fator],'LineWidth', 1.5,'color',[226, 18, 174]/250)
+            hold on
+            plot([-5.5,-5.5+referece_Force*scaling_fator],[0,0],'LineWidth', 1.5,'color',[226, 18, 174]/250)
+            
         end
 
 
