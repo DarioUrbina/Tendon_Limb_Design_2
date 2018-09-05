@@ -1,4 +1,5 @@
-%% Main 
+
+%% Main
 % Code to add leg dimensions, both segments the same size. 
 % code to add motor parameters, forces and the scaling of the feasible force set to fit into figure
 % Locations of knee and end point are calulated. (q1 position and floor location)
