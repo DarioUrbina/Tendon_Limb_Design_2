@@ -11,9 +11,9 @@
 
 %% Parameters
 %Physical measures
-l1=8;                  
-q1_Position=[0 15];
-firstTouchPoint=5.7;
+l1=8;                   %Leg segmanet measurement, both segments are the same                   
+q1_Position=[0 15];     %Position of q1 (hip)        
+firstTouchPoint=5.7;    %Useful as a initial conditions for calculations and 
 %Motors
 Motor_Force=49*.80;   %In a 24 24 scenario. The motors don't go to stall torque case, which would be 49 Nw
 force_figure_scale=.1; %Scale to fit leg trajectory figure with feasible force sets figure 
