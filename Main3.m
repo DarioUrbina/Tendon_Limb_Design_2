@@ -11,7 +11,7 @@
 
 %% Parameters
 %Physical measures
-l1=8;                   %Leg segmanet measurement, both segments are the same                   
+l1=18;                   %Leg segmanet measurement, both segments are the same                   
 q1_Position=[0 15];     %Position of q1 (hip)        
 firstTouchPoint=5.7;    %Useful as a initial conditions for calculations and 
 %Motors
