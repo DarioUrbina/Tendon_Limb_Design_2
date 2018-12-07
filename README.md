@@ -1,7 +1,5 @@
 # Tendon_Limb_Design_2
 
-# Directly copied from Tendon_Limb_Design Repository. Changes to the following line might be needed.
-
 
 The goal of this respository is to show the design behind a Tendon-Driven leg following this basic steps:
 
