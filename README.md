@@ -38,3 +38,9 @@ Activation matrix a __Show the current activation level of muscles
 
 Feasible wrench space: __w=J[-trnasp]RF*a=Ha
 
+# Room for improvement
+
+
+% A lot of optimization is possible. More atrix operations (linear
+% algebrea) can be used.
+
