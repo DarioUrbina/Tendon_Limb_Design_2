@@ -6,12 +6,19 @@
 % This file calls the function MeasureAngle.m to calculate joint angles
 %       Calculated angles have been tested, they are correctly obtained
 % it also calls function Tendon_Limb_Design.m to get the feasible force set
-%       Still need to determine if gotten feasible force set is good 
+%       Still need to check the accuracy of gotten feasible force set 
 
+% Needed improvements:
+% A lot of optimization is possible. More atrix operations (linear
+% algebrea) can be used.
 
+%%
+%clear all
+close all
+clc
 %% Parameters
 %Physical measures
-l1=18;                   %Leg segmanet measurement, both segments are the same                   
+l1=8;                   %Leg segmanet measurement, both segments are the same                   
 q1_Position=[0 15];     %Position of q1 (hip)        
 firstTouchPoint=5.7;    %Useful as a initial conditions for calculations and 
 %Motors
@@ -78,7 +85,7 @@ xlabel('cm')
 ylabel('cm') 
 hold on
 
-degs=[deg1;deg2]'
+degs=[deg1;deg2]';
 % figure
 % ground_Touch=flip(ground_Touch);
 
