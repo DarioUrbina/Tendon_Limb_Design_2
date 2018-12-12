@@ -7,7 +7,9 @@
 % This file calls the function MeasureAngle.m to calculate joint angles
 %       Calculated angles have been tested, they are correctly obtained
 % it also calls function Tendon_Limb_Design.m to get the feasible force set
-%       Still need to determine if gotten feasible force set is good 
+%       Still need to check the accuracy of gotten feasible force set 
+
+
 
 %%
 clear all
@@ -19,13 +21,16 @@ l1=8;             %[cm] both segments are the same for this study
 r1= 2.3 ;            %[cm] all moment arms have the same dimension for this study (sign depends on direction)
 q1_Position=[0 15];
 firstTouchPoint=5.9;
+
 %Motors
 Motor_Force=49*.80;   %In a 24 24 scenario. The motors don't go to stall torque case, which would be 49 Nw
 force_figure_scale=.1; %Scale to fit leg trajectory figure with feasible force sets figure 
 %Figures
 xlimit1=[-8 8];        
+
 ylimit1=[-8 17];
 figureSwitch=0;
+
 
 %Aditional
 angleCount=1;

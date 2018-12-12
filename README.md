@@ -38,3 +38,10 @@ Activation matrix a __Show the current activation level of muscles
 
 Feasible wrench space: __w=J[-trnasp]RF*a=Ha
 
+# Room for improvement
+
+%This code is good only for two segment robots analysis, it needs to be generalized.
+
+% A lot of optimization and generalization is possible. More matrix operations (linear
+% algebrea) can be used. For example, the force measurement in Tendo_Limb_Design.m can be done in a more efficent and general way.
+
