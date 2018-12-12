@@ -20,15 +20,15 @@ function Tendon_Limb_Design(q,Force,endPoint_Location,scaling_fator,figureSwitch
 
     F0 = diag([F01; F02; F03]);                 %Diagnal matrix for Fmax
 
-    %R_Front = [-r1  r1 -r1 ;                    % Moment arm matrices
-     %           -r2  0  r2];
+    %R_Front = [-r1  r1 -r1 ;                    % Moment arm matrices (in contructed platform)
+    %           -r2  0  r2];
      
-    R_Front = [r1  r1 -r1 ;                    % Different options
-                -r2  0  r2];
+    R_Front = [-r1  r1 -r1 ;                    % Different options
+                -r2  r2  +r2];
 
 
 for i=1:sizze
-    i
+    i;
         disp=i*19;
 %         disp=0 ;                      
         J_inv_Front = Jinv(deg2rad(q(i,1)), deg2rad(q(i,2)), l1, l2);       %Inverse Jacobian
@@ -120,14 +120,34 @@ end
 
 % resultant_force_2_x =  [forward force , backward force] 
 
-resultant_force_2_x = [ (max(resultant_force_2(:,1)) - endPoint_Location(i))/scaling_fator , (endPoint_Location(i) - min(resultant_force_2(:,1)))/scaling_fator ]
+resultant_force_2_x = [ (max(resultant_force_2(:,1)) - endPoint_Location(i))/scaling_fator , (endPoint_Location(i) - min(resultant_force_2(:,1)))/scaling_fator ];
 
-resultant_force_2_y = [ (max(resultant_force_2(:,2)))/scaling_fator  ,  (min(resultant_force_2(:,2)))/scaling_fator ]
+resultant_force_2_y = [ (max(resultant_force_2(:,2)))/scaling_fator  ,  (min(resultant_force_2(:,2)))/scaling_fator ];
 
 %y_up = max(resultant_force_2(:,2))
 %y_down = min(resultant_force_2(:,2))
 
+forward_forces(i) = resultant_force_2_x(2);
+backward_forces(i) = resultant_force_2_x(1);
+
+down_forces(i) = resultant_force_2_y(2);
+up_forces(i) = resultant_force_2_y(1);
+
+
+
+
 end
+
+%Flipping forces for better understandability when comparing with figure
+forward_forces= fliplr( forward_forces) 
+mean_=mean(forward_forces)
+backward_forces = fliplr(backward_forces )
+mean_=mean(backward_forces)
+down_forces = fliplr( down_forces )
+mean_=mean(down_forces)
+up_forces = fliplr( up_forces )
+mean_=mean(up_forces)
+
 %resultant_force
 %vertex
 

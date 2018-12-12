@@ -26,7 +26,7 @@ Motor_Force=49*.80;   %In a 24 24 scenario. The motors don't go to stall torque 
 force_figure_scale=.1; %Scale to fit leg trajectory figure with feasible force sets figure 
 %Figures
 xlimit1=[-8 8];        
-ylimit1=[-5 17]; 
+ylimit1=[-7 17]; 
 
 %Aditional
 angleCount=1;
