@@ -4,6 +4,7 @@
 
 %Function Jinv.m is called to get the InvJacobian
 
+
 %Tendon_Limb_Design(leg angles, motor force , endPoint Location , figure scaling_fator , 
 %figureSwitch(if 1 separate figures will be shown with feasible force sets, use figure scaling_fator=1 ))
 %%
@@ -18,6 +19,7 @@ function Tendon_Limb_Design(q,Force,endPoint_Location,scaling_fator,figureSwitch
     r1 = 2.3; r2 = 2.3;                         %Moment arms [cm]
     l1 = 8; l2 = 8;                             %Leg segment lengths [cm]
 
+
     F0 = diag([F01; F02; F03]);                 %Diagnal matrix for Fmax
 
     %R_Front = [-r1  r1 -r1 ;                    % Moment arm matrices (in contructed platform)
@@ -28,19 +30,22 @@ function Tendon_Limb_Design(q,Force,endPoint_Location,scaling_fator,figureSwitch
 
 
 for i=1:sizze
+
     i;
+
         disp=i*19;
 %         disp=0 ;                      
-        J_inv_Front = Jinv(deg2rad(q(i,1)), deg2rad(q(i,2)), l1, l2);       %Inverse Jacobian
+        J_inv_Front = Jinv(deg2rad(q(i,1)), deg2rad(q(i,2)), l1, l2,i);       %Inverse Jacobian
 %         J_inv_Front = Jinv((q(i,1)), (q(i,2)), l1, l2);        %Inverse Jacobian
 
         % H_front =  R_Front * F0;                         %For torque space plots.
 
-        H_front = J_inv_Front'* R_Front * F0;                % Fot force space plots.%
+        H_front = J_inv_Front'* R_Front * F0;               % Fot force space plots.%
         
         % %       V1          V2          V3          V4   (force vectors)
         x_F = [H_front(1,1) H_front(1,2) H_front(1,3)];
         y_F = [H_front(2,1) H_front(2,2) H_front(2,3)];
+                
         
         % % Calculating generated forces:
         % Rows each shown position; columns each resultant force component
@@ -60,6 +65,7 @@ for i=1:sizze
             1 1 1];
            vertex=zeros(8,1); 
            vertey=zeros(8,1);  
+
 
 if figureSwitch==1
         figure    
@@ -93,24 +99,52 @@ end
 %         ylabel('Y direction force [N]')
 % axis off
         hold on
+
         
         for j=1:8                                              %All positive linear combination of vectors: Minkowski sum! 
             vertex(j)=comb(j,1)*x_F(1)+ comb(j,2)*x_F(2)+ comb(j,3)*x_F(3);
             vertey(j)=comb(j,1)*y_F(1)+ comb(j,2)*y_F(2)+ comb(j,3)*y_F(3);
         end
 
-        k = convhull(vertex,vertey) ;                           %Showing the convex polygon formed by the column space created by Minkoski sum                      
-         if (endPoint_Location~=0)
-           plot(vertex(k)+endPoint_Location(i),vertey(k),'r-')
-           resultant_force_2(:,1) = vertex(k)+endPoint_Location(i);
-           resultant_force_2(:,2) = vertey(k);
-           f=f+1;
-         else
-            plot(vertex(k)+disp,vertey(k),'r-')
-            resultant_force_2(:,1) = vertex(k)+endPoint_Location(i);
-            resultant_force_2(:,2) = vertey(k);
-            f=f+1;
-         end
+
+        k = convhull(vertex,vertey);                            %Showing the convex polygon formed by the column space created by Minkoski sum                      
+
+%% Generating Figures
+%Separate figures:
+
+        if figureSwitch==1 
+            figure    
+            quiver([0 0 0],[0 0 0],x_F,y_F,'k','LineWidth', 3,'color',[0 0 1 .9],'MaxHeadSize',.5,'AutoScale','off');
+            hold on
+            plot(vertex(k),vertey(k),'r-',vertex,vertey,'b*')
+
+%All in same figure:
+        else
+            if (endPoint_Location~=0)
+     %               quiver([endPoint_Location(i) endPoint_Location(i) endPoint_Location(i)],[0 0 0],x_F,y_F,'k','LineWidth', 3,'color',[.9 .9 .9 .9]);
+                quiver(endPoint_Location(i),0 ,x_F(1),y_F(1),'k','LineWidth', 2,'color', [54 85 188]/255,'MaxHeadSize',.5,'AutoScale','off' );
+    %                quiver(endPoint_Location(i),0 ,x_F(1),y_F(1),'k','LineWidth', 2,'color',[0 0 0 .9],'MaxHeadSize',.5,'AutoScale','off' );
+                hold on
+                quiver(endPoint_Location(i),0 ,x_F(2),y_F(2),'k','LineWidth', 2,'color',[214 62 62]/255,'MaxHeadSize',.5,'AutoScale','off' );
+    %                 quiver(endPoint_Location(i),0 ,x_F(2),y_F(2),'k','LineWidth', 2,'color',[0 0 0 .9],'MaxHeadSize',.5,'AutoScale','off' );               
+                hold on
+                quiver(endPoint_Location(i),0 ,x_F(3),y_F(3),'k','LineWidth', 2,'color',[51 165 59]/255,'MaxHeadSize',.5,'AutoScale','off' );
+    %                 quiver(endPoint_Location(i),0 ,x_F(3),y_F(3),'k','LineWidth', 2,'color',[0 0 0 .9],'MaxHeadSize',.5,'AutoScale','off' );     
+                hold on
+                plot(vertex(k)+endPoint_Location(i),vertey(k),'r-')
+            else
+                quiver([disp disp disp],[0 0 0],x_F,y_F,'k','LineWidth', 3,'color',[0 0 1 .9]);
+                hold on
+                plot(vertex(k)+disp,vertey(k),'r-')
+            end
+%Ploting reference            
+            hold on
+            plot([-5.5,-5.5],[0,referece_Force*scaling_fator],'LineWidth', 1.5,'color',[226, 18, 174]/250)
+            hold on
+            plot([-5.5,-5.5+referece_Force*scaling_fator],[0,0],'LineWidth', 1.5,'color',[226, 18, 174]/250)
+            
+        end
+
 
 
 %         LimbFigure(q(i,1), q(i,2), l1, l2)
